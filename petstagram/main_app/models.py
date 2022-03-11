@@ -1,29 +1,10 @@
 from datetime import datetime
 
-from django.core.validators import MinLengthValidator
 from django.db import models
 
 from petstagram.main_app.validators import validate_image_size_5
 
-
-class Profile(models.Model):
-    choices = [
-        ('Male', 'Male'),
-        ('Female', 'Female'),
-        ('Do not show', 'Do not show')
-    ]
-    length_choices = max(len(x[0]) for x in choices)
-
-    first_name = models.CharField(max_length=30, validators=(MinLengthValidator(2),))
-    last_name = models.CharField(max_length=30, validators=(MinLengthValidator(2),))
-    picture = models.URLField()
-    birth_date = models.DateField(blank=True, null=True)
-    description = models.TextField(blank=True, null=True)
-    email = models.EmailField(blank=True, null=True)
-    gender = models.CharField(choices=choices, max_length=length_choices)
-
-    def __str__(self):
-        return self.first_name
+from petstagram.profile_app.models import Profile
 
 
 class Pet(models.Model):
@@ -59,4 +40,10 @@ class PetPhoto(models.Model):
     pets = models.ManyToManyField(Pet, )
     description = models.TextField(null=True, blank=True)
     published = models.DateField(auto_now_add=True)
-    likes = models.IntegerField(default=0)
+
+
+class LikesModel(models.Model):
+
+    like = models.ForeignKey(PetPhoto, on_delete=models.CASCADE, default=0)
+
+    # user = models.ForeignKey()

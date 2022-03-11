@@ -1,35 +1,24 @@
 {% extends 'base/common.html' %}
 {% block content %}
-<!-- End Navigation Bar -->
 
 <div class="container">
-    <div class="jumbotron parent">
+    <div class="jumbotron">
         <img style="width: 100%"
              src="https://activepets.co.za/web/ap-content/uploads/2019/08/Active-pets-dogs-and-cats.png" alt="">
-        <div class="absolute">
+        <div class="position-sticky">
             <h1 class="display-4">Welcome to Petstagram</h1>
             <p class="lead">Share your pets photos.</p>
             <hr class="my-4">
-            <div class="inner cover">
-                <h1 class="cover-heading"></h1>
-                <div class="row">
+            <div class="flex-row">
 
-                    <!-- Button to show if profile created -->
-                    <div class="col-lg-6">
-                        <p class="lead">
-                            <a href="#" class="btn btn-lg btn-secondary">Enter</a></p>
-                    </div>
+                <!-- Login Button -->
+                <a href="{% url 'login' %}" class="btn btn-lg btn-secondary">Login</a>
 
-                    <!-- Button to show if profile is NOT created -->
-                    <div class="col-lg-6">
-                        <p class="lead">
-                            <a href="#" class="btn btn-lg btn-secondary">Create Profile</a>
-                        </p>
-                    </div>
-
-                </div>
+                <!-- Register Button -->
+                <a href="#" class="btn btn-lg btn-secondary">Register</a>
             </div>
         </div>
     </div>
 </div>
-{%  endblock %}
+
+{% endblock %}

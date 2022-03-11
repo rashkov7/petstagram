@@ -19,10 +19,10 @@
                 <!-- Likes Button -->
                 <a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i></a>
                 <!-- Likes Counter -->
-                <p class="mt-2">Likes: 21</p>
+                <p class="mt-2">Likes: {{ ghghgh }}</p>
                 <!-- Buttons -->
-                <a href="#" class="btn btn-primary">Edit</a>
-                <a href="#" class="btn btn-danger">Delete</a>
+                <a href="{% url 'edit photo' photo_details.id %}" class="btn btn-primary">Edit</a>
+                <a href="{% url 'delete photo' photo_details.id %}" class="btn btn-danger">Delete</a>
             </div>
         </div>
     </div>

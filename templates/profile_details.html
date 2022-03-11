@@ -1,8 +1,6 @@
 {% extends 'base/common.html' %}
 {% block content %}
-    <!-- End Navigation Bar -->
 
-    <!-- Profile Information -->
     <div class="container">
         <div class="row justify-content-center">
             <div class="d-flex">
@@ -12,27 +10,21 @@
                 </div>
                 <div class="d-inline p-2 w-50">
                     <div class="d-flex flex-column">
-                        <h5><u>Name:</u> {{ profile.first_name }} {{ profile.last_name }}</h5>
-                        <!-- If Date of Birth -->
-                        <h5><u>Birthdate:</u> {{ profile.birth_date }}</h5>
-                        <!-- If Email -->
-                        <h5><u>Email:</u> {{ profile.email }}</h5>
-                        <!-- If Gender is Chosen -->
-                        <h5><u>Gender:</u> {{ profile.gender }}</h5>
-                        <!-- If Description -->
-                        <h5><u>Description:</u> {{ profile.description }}</h5>
+                        <h5><u>Name:</u><p>{{ profile.first_name }} {{ profile.last_name }}</p> </h5>
+                        <h5><u>Birthdate:</u><p>{{ profile.birth_date }}</p> </h5>
+                        <h5><u>Email:</u><p> {{ user.email }}</p></h5>
+                        <h5><u>Gender:</u><p>{{ profile.gender }}</p> </h5>
+                        <h5><u>Description:</u><p>{{ profile.description }}</p></h5>
                     </div>
                     <p class="mt-2">Total Images: {{ count_images }}</p>
-                    <p class="mt-2">Total Likes: 21</p>
-                    <a href="#" class="btn btn-primary">Edit</a>
+                    <p class="mt-2">Total Likes: {{ likes }}</p>
+                    <a href="{% url 'profile edit' profile.id %}" class="btn btn-primary">Edit</a>
                     <a href="#" class="btn btn-danger">Delete</a>
                 </div>
             </div>
         </div>
     </div>
-    <!-- End Profile Information -->
 
-    <!-- Pets Information -->
     <h2 class="text-center">My Pets</h2>
     <div class="container mb-4">
         <div class="d-flex justify-content-start mb-5">
@@ -41,8 +33,8 @@
                 <div style="width: 18rem;">
                     <h5>{{ p.name }}</h5>
                     <p class="mt-2">Age: {{ p.age }}</p>
-                    <a href="#" class="btn btn-primary">Edit</a>
-                    <a href="#" class="btn btn-danger">Delete</a>
+                    <a href="{% url 'edit pet' p.id %}" class="btn btn-primary">Edit</a>
+                    <a href="{% url 'delete pet' p.id %}" class="btn btn-danger">Delete</a>
                 </div>
             {% endfor %}
         </div>

@@ -18,5 +18,7 @@ from django.urls import path,include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('petstagram.main_app.urls'))
+    path('', include('petstagram.main_app.urls')),
+    path('profile/', include('petstagram.profile_app.urls')),
+    path('', include('petstagram.auth_app.urls')),
 ]
