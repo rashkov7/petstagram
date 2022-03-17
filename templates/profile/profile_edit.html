@@ -6,7 +6,7 @@
     <div class="row">
         <div class="col-lg-3"></div>
         <div class="col-lg-6">
-            <form method="POST" action="{% url 'profile edit' profile.id %}">
+            <form method="POST" action="{% url 'profile edit' user.id %}">
                 {% csrf_token %}
                 {{ form }}
 

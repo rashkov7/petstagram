@@ -4076,7 +4076,7 @@ input[type=button].btn-block, input[type=reset].btn-block, input[type=submit].bt
 }
 
 .navbar {
-    position: relative;
+    position: center;
     display: -ms-flexbox;
     display: flex;
     -ms-flex-wrap: wrap;
@@ -10039,7 +10039,7 @@ a.text-dark:focus, a.text-dark:hover {
 }
 
 .text-hide {
-    font: 0/0 a;
+    /*font: 0/0 a;*/
     color: transparent;
     text-shadow: none;
     background-color: transparent;
@@ -10152,5 +10152,4 @@ a.text-dark:focus, a.text-dark:hover {
         border-color: #dee2e6
     }
 }
-
 /*# sourceMappingURL=bootstrap.min.css.map */

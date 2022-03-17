@@ -3,7 +3,7 @@ from django.conf.urls.static import static
 from django.urls import path
 
 from petstagram.main_app.views import HomeView, DashboardView, PhotoDetails, PetCreateView, PhotoCreateView, \
-    PhotoEditView, PetEditView, PetDeleteView, delete_pet_photo
+    PhotoEditView, PetEditView, PetDeleteView, delete_pet_photo, like
 from petstagram.profile_app.views import ProfilePageView
 
 urlpatterns = [
@@ -19,4 +19,5 @@ urlpatterns = [
     path('photo/delete/<int:pk>', delete_pet_photo, name='delete photo'),
     path('photo/edit/<int:pk>', PhotoEditView.as_view(), name='edit photo'),
     path('photo/create/', PhotoCreateView.as_view(), name='add photo'),
+    path('photo/like/<int:pk>', like, name='like photo'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

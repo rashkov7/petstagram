@@ -1,12 +1,13 @@
 {% extends 'base/common.html' %}
 {% block content %}
+{% load static %}
 
     <div class="container">
 
         {% if not pets_photos %}
             <h1 class='text-center'>No pet photos yet</h1>
             <div class=" row d-flex justify-content-center align-content-center">
-                <a href="#" class="btn btn-lg btn-secondary row align-self-baseline">Add Photo</a>
+                <a href="{% url 'add photo' %}" class="btn btn-lg btn-secondary row align-self-baseline">Add Photo</a>
             </div>
 
         {% else %}

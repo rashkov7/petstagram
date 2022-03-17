@@ -1,13 +1,18 @@
 from django import forms
+from django.core.exceptions import NON_FIELD_ERRORS
 
 from petstagram.main_app.models import Pet, PetPhoto
-from petstagram.profile_app.views import get_profile
 
 
 class PetCreateForm(forms.ModelForm):
     class Meta:
         model = Pet
         exclude = ('user_profile',)
+        error_messages = {
+            NON_FIELD_ERRORS: {
+                'unique_together': "%(model_name)s's %(field_labels)s are not unique.",
+            }
+        }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -42,6 +47,7 @@ class PhotoEditForm(forms.ModelForm):
                 field.widget.attrs['class'] = 'form-control'
             field.widget.attrs.update({'class': 'form-control'})
 
+
 class PetEditForm(forms.ModelForm):
     class Meta:
         model = Pet
@@ -54,10 +60,6 @@ class PetEditForm(forms.ModelForm):
                 field.widget.attrs['class'] = 'form-control'
             field.widget.attrs.update({'class': 'form-control'})
             
-    def save(self, commit=False):
-        
-        self.instance.user_profile = get_profile()
-        return super(PetEditForm, self).save()
 
 class PetDeleteForm(forms.ModelForm):
     class Meta:

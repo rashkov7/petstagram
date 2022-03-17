@@ -6,6 +6,7 @@ from django.db import models
 
 from petstagram.auth_app.managers import PetstagramUserManager
 
+
 class PetstagramUser(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True)
     is_staff = models.BooleanField(

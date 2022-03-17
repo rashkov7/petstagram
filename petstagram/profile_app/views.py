@@ -8,20 +8,21 @@ from petstagram.profile_app.forms import ProfileCreateForm, ProfileEditForm
 from petstagram.profile_app.models import Profile
 
 
-def get_profile():
-    profile = Profile.objects.all()
-    if profile:
-        return profile[0]
-
+# def get_profile():
+#     profile = Profile.objects.all()
+#     if profile:
+#         return profile[0]
+#
 
 class ProfilePageView(TemplateView):
     template_name = 'profile_details.html'
 
     def get_context_data(self, **kwargs):
         result = super().get_context_data(**kwargs)
-        result['profile'] = get_profile()
-        result['count_images'] = len(set(PetPhoto.objects.filter(pets__user_profile=get_profile())))
+        result['profile'] = Profile.objects.get(user_id=self.request.user.id)
+        result['count_images'] = len(set(PetPhoto.objects.filter(pets__user_profile_id=self.request.user.id)))
         # result['likes'] = sum(photo.likes for photo in set(PetPhoto.objects.filter(pets__user_profile=get_profile())))
+        a = 5
         return result
 
 
@@ -36,8 +37,11 @@ class ProfileCreateView(CreateView):
 
     def form_valid(self, form):
         """If the form is valid, save the associated model."""
-        self.object = form.save()
-        user=PetstagramUser.objects.get(pk=self.request.user.id)
+
+        self.object = form.save(commit=False)
+        self.object.user = self.request.user
+        self.object = form.save(commit=True)
+        user = PetstagramUser.objects.get(pk=self.request.user.id)
         user.has_profile = True
         user.save()
         return super().form_valid(form)
@@ -49,9 +53,9 @@ class ProfileEditView(UpdateView):
     form_class = ProfileEditForm
     model = Profile
 
-    def get_context_data(self, **kwargs):
-        result = super().get_context_data(**kwargs)
-        result['profile'] = get_profile()
-        result['count_images'] = len(set(PetPhoto.objects.filter(pets__user_profile=get_profile())))
-        # result['likes'] = sum(photo.likes for photo in set(PetPhoto.objects.filter(pets__user_profile=get_profile())))
-        return result
+    def form_valid(self, form):
+        """If the form is valid, save the associated model."""
+        self.object = form.save(commit=False)
+        self.object.user = self.request.user
+        self.object = form.save(commit=True)
+        return super().form_valid(form)

@@ -1,5 +1,7 @@
 {% extends 'base/common.html' %}
 {% block content %}
+{% load static %}
+
 
 <div class="container">
     <div class="jumbotron">
@@ -15,7 +17,7 @@
                 <a href="{% url 'login' %}" class="btn btn-lg btn-secondary">Login</a>
 
                 <!-- Register Button -->
-                <a href="#" class="btn btn-lg btn-secondary">Register</a>
+                <a href="{% url 'register' %}" class="btn btn-lg btn-secondary">Register</a>
             </div>
         </div>
     </div>

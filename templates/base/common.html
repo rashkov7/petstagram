@@ -6,9 +6,7 @@
     <meta charset="UTF-8">
     <title>Petstagram</title>
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
     <link rel="icon" type="image/png" href="https://pluspng.com/img-png/instagram-png-instagram-png-icon-1024.png">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
           integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
@@ -29,9 +27,6 @@
                 <a class="nav-link" href="{% url 'index' %}">Home</a>
             </li>
             {% if user.is_authenticated %}
-{#                <li class="nav-item">#}
-{#                    <a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a>#}
-{#                </li>#}
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'add pet' %}">Add pet</a>
                 </li>
@@ -48,6 +43,11 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'logout' %}">LogOUT</a>
                 </li>
+                {% if user.has_profile %}
+                    <h5 style="margin-left: 600px">{{ user.profile.first_name }}</h5>
+                {% else %}
+                    <h5 style="margin-left: 600px; color: red;">Update your profile!</h5>
+                {% endif %}
             {% endif %}
         </ul>
     </div>

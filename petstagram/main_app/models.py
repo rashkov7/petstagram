@@ -2,6 +2,7 @@ from datetime import datetime
 
 from django.db import models
 
+from petstagram.auth_app.views import UserModel
 from petstagram.main_app.validators import validate_image_size_5
 
 from petstagram.profile_app.models import Profile
@@ -22,7 +23,7 @@ class Pet(models.Model):
     animal_type = models.CharField(max_length=choices_length, choices=choices)
     birth_date = models.DateField(null=True, blank=True)
 
-    user_profile = models.ForeignKey(Profile, on_delete=models.CASCADE, )
+    user_profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
 
     @property
     def age(self):
@@ -43,7 +44,7 @@ class PetPhoto(models.Model):
 
 
 class LikesModel(models.Model):
-
-    like = models.ForeignKey(PetPhoto, on_delete=models.CASCADE, default=0)
+    user = models.ForeignKey(UserModel, on_delete=models.CASCADE)
+    like = models.ForeignKey(PetPhoto, on_delete=models.CASCADE)
 
     # user = models.ForeignKey()
