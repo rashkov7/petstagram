@@ -2,8 +2,9 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path
 
-from petstagram.main_app.views import HomeView, DashboardView, PhotoDetails, PetCreateView, PhotoCreateView, \
-    PhotoEditView, PetEditView, PetDeleteView, delete_pet_photo, like
+from petstagram.main_app.views.main import HomeView, DashboardView
+from petstagram.main_app.views.pet import PetCreateView, PetEditView, PetDeleteView
+from petstagram.main_app.views.photo import PhotoDetails, delete_pet_photo, PhotoEditView, PhotoCreateView, like
 from petstagram.profile_app.views import ProfilePageView
 
 urlpatterns = [
