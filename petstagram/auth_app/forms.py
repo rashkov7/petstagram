@@ -1,7 +1,7 @@
 from django import forms
-from django.core.exceptions import ValidationError
 
 from petstagram.auth_app.models import PetstagramUser
+from petstagram.auth_app.validators import validate_confirm_password
 
 
 class PetstagramUserForm(forms.ModelForm):
@@ -15,9 +15,9 @@ class PetstagramUserForm(forms.ModelForm):
     def clean_password2(self):
         password1 = self.cleaned_data.get('password1')
         password2 = self.cleaned_data.get('password2')
-        if not password1 == password2:
-            raise ValidationError("Passwords don't match")
-        return password2
+        confirm_password = validate_confirm_password(password1, password2)
+        return confirm_password
+
 
     def save(self, commit=True):
         user = super().save(commit=False)
