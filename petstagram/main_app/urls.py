@@ -5,12 +5,10 @@ from django.urls import path
 from petstagram.main_app.views.main import HomeView, DashboardView
 from petstagram.main_app.views.pet import PetCreateView, PetEditView, PetDeleteView
 from petstagram.main_app.views.photo import PhotoDetails, delete_pet_photo, PhotoEditView, PhotoCreateView, like
-from petstagram.profile_app.views import ProfilePageView
 
 urlpatterns = [
     path('', HomeView.as_view(), name='index'),
     path('dashboard/', DashboardView.as_view(), name='dashboard'),
-    path('profile/', ProfilePageView.as_view(), name='profile page'),
 
     path('pet/create/', PetCreateView.as_view(), name='add pet'),
     path('pet/edit/<int:pk>', PetEditView.as_view(), name='edit pet'),

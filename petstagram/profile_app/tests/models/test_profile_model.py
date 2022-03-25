@@ -32,7 +32,7 @@ class TestProfile(TestCase):
         profile = self.profile
         profile.full_clean()
         profile.save()
-
+        self.assertEqual(self.profile.pk,1)
         self.assertIsNotNone(profile)
 
     def test_profile_full_name_property(self):

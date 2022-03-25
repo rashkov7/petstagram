@@ -1,8 +1,8 @@
 from django.urls import path
 
-from petstagram.profile_app.views import ProfileCreateView, ProfileEditView
+from petstagram.profile_app.views import  ProfileEditView, ProfilePageView
 
 urlpatterns = (
-    path("create/", ProfileCreateView.as_view(), name="profile create"),
     path("edit/<int:pk>", ProfileEditView.as_view(), name="profile edit"),
+    path('<int:pk>', ProfilePageView.as_view(), name='profile page'),
 )

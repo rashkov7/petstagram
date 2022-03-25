@@ -28,7 +28,9 @@ class PetDeleteView(DeleteView):
     template_name = 'pet/pet_delete.html'
     model = Pet
     form_class = PetDeleteForm
-    success_url = reverse_lazy('profile page')
+
+    def get_success_url(self):
+        return reverse_lazy('profile page', kwargs={'pk':self.request.user.id})
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()

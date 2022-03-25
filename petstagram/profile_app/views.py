@@ -1,15 +1,16 @@
 from django.urls import reverse_lazy
 
-from django.views.generic import TemplateView, CreateView, UpdateView
+from django.views.generic import UpdateView, DetailView
 
-from petstagram.auth_app.models import PetstagramUser
 from petstagram.main_app.models import PetPhoto
-from petstagram.profile_app.forms import ProfileCreateForm, ProfileEditForm
+from petstagram.profile_app.forms import ProfileEditForm
 from petstagram.profile_app.models import Profile
 
 
-class ProfilePageView(TemplateView):
+class ProfilePageView(DetailView):
+    model = Profile
     template_name = 'profile_details.html'
+    context_object_name = 'profile'
 
     def get_context_data(self, **kwargs):
         result = super().get_context_data(**kwargs)
@@ -18,36 +19,19 @@ class ProfilePageView(TemplateView):
         return result
 
 
-class ProfileCreateView(CreateView):
-    template_name = 'profile/profile_create.html'
-    success_url = reverse_lazy('profile page')
-    form_class = ProfileCreateForm
-    model = Profile
-
-    def get_success_url(self):
-        return reverse_lazy('profile page')
-
-    def form_valid(self, form):
-        """If the form is valid, save the associated model."""
-
-        self.object = form.save(commit=False)
-        self.object.user = self.request.user
-        self.object = form.save(commit=True)
-        user = PetstagramUser.objects.get(pk=self.request.user.id)
-        user.has_profile = True
-        user.save()
-        return super().form_valid(form)
-
-
 class ProfileEditView(UpdateView):
     template_name = 'profile/profile_edit.html'
-    success_url = reverse_lazy('profile page')
     form_class = ProfileEditForm
     model = Profile
 
+    def get_success_url(self):
+        return reverse_lazy('profile page', kwargs={'pk':self.object.pk})
+
     def form_valid(self, form):
-        """If the form is valid, save the associated model."""
         self.object = form.save(commit=False)
         self.object.user = self.request.user
+        if not self.request.user.has_profile:
+            self.request.user.has_profile = True
+            self.request.user.save()
         self.object = form.save(commit=True)
         return super().form_valid(form)

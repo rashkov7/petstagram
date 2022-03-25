@@ -5,6 +5,7 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView
 
 from petstagram.auth_app.forms import PetstagramUserForm
+from petstagram.profile_app.models import Profile
 
 UserModel = get_user_model()
 
@@ -17,6 +18,12 @@ class RegisterView(CreateView):
 
     def form_valid(self, form):
         result = super().form_valid(form)
+        Profile.objects.create(
+            first_name='Аnonymous',
+            last_name='Аnonymous',
+            gender='Do not show',
+            user=self.object
+        )
         login(self.request, self.object)
         return result
 

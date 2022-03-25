@@ -14,7 +14,7 @@ class Profile(models.Model):
 
     first_name = models.CharField(max_length=30, validators=(MinLengthValidator(2),))
     last_name = models.CharField(max_length=30, validators=(MinLengthValidator(2),))
-    picture = models.URLField()
+    picture = models.URLField(blank=True, null=True)
     birth_date = models.DateField(blank=True, null=True)
     description = models.TextField(blank=True, null=True)
     gender = models.CharField(choices=choices, max_length=length_choices)
