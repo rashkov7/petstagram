@@ -2,7 +2,7 @@ from django.urls import reverse_lazy
 
 from django.views.generic import UpdateView, DetailView
 
-from petstagram.main_app.models import PetPhoto
+from petstagram.main_app.models import PetPhoto, Pet, LikesModel
 from petstagram.profile_app.forms import ProfileEditForm
 from petstagram.profile_app.models import Profile
 
@@ -14,8 +14,11 @@ class ProfilePageView(DetailView):
 
     def get_context_data(self, **kwargs):
         result = super().get_context_data(**kwargs)
-        result['profile'] = Profile.objects.get(user_id=self.request.user.id)
-        result['count_images'] = len(set(PetPhoto.objects.filter(pets__user_profile_id=self.request.user.id)))
+        pets = Pet.objects.filter(user_profile_id=self.object.user_id)
+        photos = set(PetPhoto.objects.filter(pets__user_profile_id=self.object.user_id))
+        result['pets'] = pets
+        result['count_images'] = len(photos)
+        result['profile'] = Profile.objects.get(user_id=self.object.user_id)
         return result
 
 

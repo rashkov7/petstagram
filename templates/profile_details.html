@@ -18,7 +18,7 @@
                     </div>
                     <p class="mt-2">Total Images: {{ count_images }}</p>
                     <p class="mt-2">Total Likes: {{ likes }}</p>
-                    <a href="{% url 'profile edit' user.id %}" class="btn btn-primary">Edit</a>
+                    <a href="{% url 'profile edit' profile.pk %}" class="btn btn-primary">Edit</a>
                     <a href="#" class="btn btn-danger">Delete</a>
                 </div>
             </div>
@@ -29,7 +29,7 @@
     <div class="container mb-4">
         <div class="d-flex justify-content-start mb-5">
             <!-- Info for First Pet -->
-            {% for p in profile.pet_set.all %}
+            {% for p in pets %}
                 <div style="width: 18rem;">
                     <h5>{{ p.name }}</h5>
                     <p class="mt-2">Age: {{ p.age }}</p>
